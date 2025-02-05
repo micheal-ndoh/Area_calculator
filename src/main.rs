@@ -15,26 +15,29 @@ fn main() {
     std::io::stdin().read_line(&mut choice).expect("Failed to read line");
 
     if choice.trim().to_lowercase() == "c" {
+        
         println!("Enter the radius of the circle:");
         let mut radius = String::new();
         std::io::stdin().read_line(&mut radius).expect("Failed to read line");
         let radius: f64 = radius.trim().parse().expect("enter a number!");
     
         let circle = Circle::new(radius);
-        println!("The area of the circle is: {}", (&circle as &dyn Area).area());
+        println!("The area of the circle is: {}cm", (&circle as &dyn Area).area());
+        
     } else if choice.trim().to_lowercase() == "r" {
+        
         println!("Enter the length of the rectangle:");
         let mut length = String::new();
         std::io::stdin().read_line(&mut length).expect("Failed to read line");
         let length: f64 = length.trim().parse().expect(" enter a number");
-    
+        
         println!("Enter the width of the rectangle:");
         let mut width = String::new();
         std::io::stdin().read_line(&mut width).expect("Failed to read line");
         let width: f64 = width.trim().parse().expect(" enter a number");
     
         let rectangle = Rectangle::new(length, width);
-        println!("The area of the rectangle is: {}", (&rectangle as &dyn Area).area());
+        println!("The area of the rectangle is: {}cm", (&rectangle as &dyn Area).area());
     
     } else {
         println!("Choose C or R ");
