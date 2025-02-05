@@ -15,7 +15,7 @@ FROM debian:buster-slim
 WORKDIR /usr/src/area
 
 # Copy the built binary from the builder stage
-COPY --from=builder /usr/src/cpu/target/release/area .
+COPY --from=builder /usr/src/area/target/release/area .
 
 # Run the executable
 CMD ["./area"]
