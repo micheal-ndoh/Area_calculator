@@ -8,8 +8,7 @@ COPY . .
 # Build the Rust program
 RUN cargo build --release
 
-
-FROM debian:buster-slim
+FROM ubuntu:22.04
 
 # Set the working directory
 WORKDIR /usr/src/area
