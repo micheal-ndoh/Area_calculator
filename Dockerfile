@@ -1,42 +1,21 @@
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+FROM rust:latest as builder
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
+# Set the working directory
+WORKDIR /usr/src/area
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+COPY . .
 
-      - name: Set up Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
+# Build the Rust program
+RUN cargo build --release
 
-      - name: Build the Rust project
-        run: cargo build --release
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+FROM debian:buster-slim
 
-      - name: Build and push Docker image
-        env:
-          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker build -t ghcr.io/${{ github.repository }}/cpu:latest .
-          docker push ghcr.io/${{ github.repository }}/cpu:latest
+# Set the working directory
+WORKDIR /usr/src/area
+
+# Copy the built binary from the builder stage
+COPY --from=builder /usr/src/cpu/target/release/area .
+
+# Run the executable
+CMD ["./area"]
