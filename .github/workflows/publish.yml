@@ -9,6 +9,10 @@ on:
 jobs:
   build-and-slim:
     runs-on: ubuntu-latest
+    permissions:
+        contents: read
+        packages: write
+        id-token: write
 
     steps:
     # Step 1: Checkout the repository
