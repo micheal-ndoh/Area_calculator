@@ -38,5 +38,5 @@ jobs:
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/cpu:latest .
-          docker push ghcr.io/${{ github.repository }}/cpu:latest
+          docker build -t ghcr.io/${{ github.repository }}/area:latest .
+          docker push ghcr.io/${{ github.repository }}/area:latest
